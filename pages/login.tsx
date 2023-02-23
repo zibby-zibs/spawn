@@ -54,7 +54,7 @@ function Login({}: Props) {
         />
 
         <form onSubmit={handleSubmit(onSubmit)} className='relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-14'>
-          <h1 className='capitalize text-4xl font-semibold'>sign in</h1>
+          <h1 className='capitalize text-4xl font-semibold'>sign in <span className="text-[gray] text-sm">-welcome to spawn</span></h1>
           <div className='space-y-4'>
             <label className='inline-block w-full'>
               <input 
@@ -91,7 +91,7 @@ function Login({}: Props) {
           </button>
 
           <div className='text-[gray]'>
-            New to Netflix? &nbsp;
+            New to Spawn? &nbsp;
             <button className='text-white hover:underline capitalize' onClick={() => {
               // setLogin(false)
               router.push("register")
