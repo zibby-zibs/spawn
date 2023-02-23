@@ -11,7 +11,7 @@ interface Inputs {
   password: string
 }
 
-function Login({}: Props) {
+function Register({}: Props) {
 
   const [login, setLogin] = useState(true);
   const { signIn, signUp, error, setError } = useAuth();
@@ -28,7 +28,7 @@ function Login({}: Props) {
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async({email, password}) => {
     if (login) {
-      await signIn(email, password)
+      await signUp(email, password)
     }
   };
 
@@ -54,7 +54,7 @@ function Login({}: Props) {
         />
 
         <form onSubmit={handleSubmit(onSubmit)} className='relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-14'>
-          <h1 className='capitalize text-4xl font-semibold'>sign in</h1>
+          <h1 className='capitalize text-4xl font-semibold'>sign up</h1>
           <div className='space-y-4'>
             <label className='inline-block w-full'>
               <input 
@@ -87,19 +87,16 @@ function Login({}: Props) {
           <button className='w-full rounded bg-[#e50914] py-3 font-semibold capitalize' 
             onClick={() => setLogin(true)}
           >
-            sign in
+            sign up
           </button>
 
           <div className='text-[gray]'>
-            New to Netflix? &nbsp;
-            <button className='text-white hover:underline capitalize' onClick={() => {
-              // setLogin(false)
-              router.push("register")
-            }}>sign up now</button>
+            Have an account? &nbsp;
+            <button type='submit' className='text-white hover:underline capitalize' onClick={() => router.push("login")}>sign in now</button>
           </div>
         </form>
     </main>
   )
 }
 
-export default Login
+export default Register

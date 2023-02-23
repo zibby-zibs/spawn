@@ -60,10 +60,18 @@ export const AuthProvider = ({children}: Props) => {
             setLoading(false)
         }).catch((error)=>{
             if (error.code=== "auth/email-already-in-use"){
-                setError("This email is assigned to an account")
-                
-            } 
-            
+                setError("This email is assigned to an account")  
+            } else if (error.message === "auth/email-already-exists"){
+                setError("Email already exists")
+            } else if (error.message === "auth/internal-error"){
+                setError("something went wrong, try again")
+            } else if (error.message === "auth/invalid-email"){
+                setError("Use a proper email")
+            } else if (error.message === "auth/invalid-password") {
+                setError("Your password must be atleast six characters")
+            } else if (error.message === "auth/user-not-found") {
+                setError("User not found")
+            }
         })
         .finally(()=> setLoading(false))
     }
@@ -76,11 +84,19 @@ export const AuthProvider = ({children}: Props) => {
             setLoading(false)
         })
         .catch((error)=>{
-            if (error.message === "auth/email-already-in-use"){
-                throw new error("Account in use")
-                
-            } 
-            alert(error.message)
+            if (error.code=== "auth/email-already-in-use"){
+                setError("This email is assigned to an account")  
+            } else if (error.message === "auth/email-already-exists"){
+                setError("Email already exists")
+            } else if (error.message === "auth/internal-error"){
+                setError("something went wrong, try again")
+            } else if (error.message === "auth/invalid-email"){
+                setError("Use a proper email")
+            } else if (error.message === "auth/invalid-password") {
+                setError("Your password must be atleast six characters")
+            } else if (error.message === "auth/user-not-found") {
+                setError("User not found")
+            }
         })
         .finally(()=> setLoading(false))
     }
@@ -91,12 +107,12 @@ export const AuthProvider = ({children}: Props) => {
         signOut(auth).then(()=> {
             setUser(null)
         })
-        .catch((error)=>alert(error.message))
+        .catch((error)=> alert(error.message))
         .finally(()=> setLoading(false))
     }
 
-    const memoValue = useMemo(()=> ({
-        user, signUp, signIn, loading, logout, error,    }), [user, loading])
+    // const memoValue = useMemo(()=> ({
+    //     user, signUp, signIn, loading, logout, error,    }), [user, loading])
 
   return (
     <AuthContext.Provider value={{
