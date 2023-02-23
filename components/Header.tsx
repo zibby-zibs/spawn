@@ -3,12 +3,16 @@ import React, { useEffect, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { BsFillBellFill } from 'react-icons/bs'
 import Link from 'next/link'
-
+import useAuth from '@/hooks/useAuth'
+import { modalState } from '@/atoms/modalAtom'
+import { useRecoilState } from 'recoil'
 type Props = {}
 
 function Header({}: Props) {
 
+    const { logout } = useAuth();
     const [isScrolled, setIsScrolled] = useState(false);
+    
 
     useEffect(()=>{
         const handleScroll = ()=>{
@@ -52,6 +56,7 @@ function Header({}: Props) {
                     src="https://rb.gy/g1pwyx"
                     alt="kids" 
                     className='cursor-pointer rounded'
+                    onClick={logout}
                 />
             </Link>
         </aside>
