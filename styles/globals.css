@@ -25,3 +25,9 @@
 .modalButton {
   @apply flex h-11 w-11 items-center justify-center rounded-full border-2 border-[gray] bg-[#2a2a2a]/60 transition hover:border-white/10;
 }
+.searchInput {
+  @apply bg-[#333] rounded p-1 px-2 sm:px-8 xl:px-24 placeholder-[gray] outline-none focus:bg-[#454545]
+}
+.stroked {
+  -webkit-text-stroke: 1px black;
+}

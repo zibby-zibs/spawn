@@ -3,7 +3,7 @@ import MuiModal from '@mui/material/Modal'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { modalState, movieState } from '@/atoms/modalAtom'
 import { AiOutlineClose, AiOutlinePlus,} from 'react-icons/ai'
-import { FaPlay } from 'react-icons/fa'
+import { FaPlay, FaPause } from 'react-icons/fa'
 import { BsPlusCircle, BsHandThumbsUp, BsVolumeMuteFill,  BsVolumeUpFill  } from 'react-icons/bs'
 import { Genre, Movie } from '@/typings'
 import {Element} from '../typings'
@@ -19,6 +19,7 @@ function Modal({}: Props) {
     const [clip, setClip] = useState("")
     const [genres, setGenres] = useState<Genre[]>()
     const [muted, setMuted] = useState(true)
+    const [playing, setPlaying] = useState(true)
 
     useEffect(()=>{
         if(!movie) return 
@@ -32,7 +33,7 @@ function Modal({}: Props) {
                   }&language=en-US&append_to_response=videos`
             ).then((response)=> response.json())
             
-            console.log(data)
+            
             if(data?.videos) {
                 const index = data.videos.results.findIndex((element: Element) => element.type === 'Trailer')
                 setTrailer(data.videos?.results[index]?.key)
@@ -43,7 +44,7 @@ function Modal({}: Props) {
             if (data?.genres) {
                 setGenres(data.genres)
             }
-            console.log("trailer:",trailer, "clip:",clip)
+            
             
         }
         fetchMovie()
@@ -69,16 +70,22 @@ function Modal({}: Props) {
                     width='100%'
                     height='100%'
                     style={{position: 'absolute', top: '0', left: '0'}}
-                    playing
+                    playing = {playing}
                     muted={muted}
+                    volume = {muted ? 0 : 1}
+                    controls
                 />
             
 
                 <section className='absolute bottom-10 flex w-full items-center justify-between px-10'>
                     <aside className='flex space-x-2'>
-                        <button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
-                            <FaPlay className='h-7 w-7 text-black'/>
-                            Play
+                        <button className="flex items-center gap-x-2 rounded bg-white px-4 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
+                            { !playing ? (
+                                <FaPlay className='h-7 w-7 text-black' onClick={()=>setPlaying(!playing)}/>
+                                ) : (
+                                    <FaPause className='h-7 w-7 text-black' onClick={()=>setPlaying(!playing)}/>
+                                )
+                            }
                         </button>
 
                         <button className='modalButton'>

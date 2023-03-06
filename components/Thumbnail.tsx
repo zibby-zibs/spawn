@@ -15,7 +15,7 @@ function Thumbnail({movie}: Props) {
   const [ showModal, setShowModal ] = useRecoilState(modalState)
 
   return (
-    <main className='relative h-28 min-w-[180px] cursor-pointer transition duration-200 ease-out md:h-36 md:min-w-[260px] md:hover:scale-105'
+    <main className='relative h-28 min-w-[180px] cursor-pointer transition duration-200 ease-out md:h-36 md:min-w-[260px] md:hover:scale-105 hover:text-black'
       onClick={()=>{
         setCurrentMovie(movie)
         setShowModal(true)
@@ -27,6 +27,7 @@ function Thumbnail({movie}: Props) {
             fill
             className='rounded-sm object-contain md:rounded'
         />
+        <h5 className='absolute bottom-0 px-3 font-semibold text-md'>{movie?.name || movie?.title}</h5>
     </main>
   )
 }
